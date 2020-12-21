@@ -13,8 +13,8 @@
     package_facts:
   - name: Collect optional service_facts
     service_facts:
-  - name: Collect optional listen_ports_facts
-    listen_ports_facts:
+  #- name: Collect optional listen_ports_facts (not included with many Ansible versions)
+  #  listen_ports_facts:
   - name: Store ansible facts in local files
     template:
       src: store-ansible-facts.j2
