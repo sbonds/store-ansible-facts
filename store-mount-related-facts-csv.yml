@@ -1,0 +1,17 @@
+---
+# Stores ansible_facts to a file by way of a j2 template
+- hosts: all
+  gather_facts: true
+  become: true
+  tasks:
+  - name: Create a consistent timestamp for all files
+    set_fact:
+      datestamp: "{{ ansible_date_time.year }}{{ ansible_date_time.month }}{{ ansible_date_time.day }}-{{ ansible_date_time.hour }}{{ ansible_date_time.minute }}{{ ansible_date_time.second}}"
+      cacheable: yes
+    run_once: true
+  - name: Store some mount-related ansible facts in local CSV files
+    template:
+      src: store-mount-related-facts-csv.j2
+      dest: "ansible_facts-mount-info-{{ inventory_hostname }}-{{ datestamp }}.csv"
+    delegate_to: localhost
+    become: false

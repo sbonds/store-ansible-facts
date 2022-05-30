@@ -1,0 +1,6 @@
+"host","ansible hostname","device","mount point","fs type","total size in bytes","bytes available"
+{% for host in ansible_play_hosts %}
+{% for mount in hostvars[host]['ansible_facts']['mounts'] %}
+"{{ host }}","{{ hostvars[host]['ansible_facts']['hostname'] | default("UNKNOWN") }}","{{ mount['device'] | default("UNKNOWN") }}","{{ mount['mount'] | default("UNKNOWN") }}","{{ mount['fstype'] | default("UNKNOWN") }}","{{ mount['size_total'] | default("UNKNOWN") }}","{{ mount['size_available'] | default("UNKNOWN") }}"
+{% endfor %}
+{% endfor %}
